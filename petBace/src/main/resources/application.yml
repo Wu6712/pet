@@ -1,0 +1,24 @@
+server:
+  port: 8080
+
+spring:
+  mvc:
+    pathmatch:
+      matching-strategy: ant_path_matcher
+  datasource:
+    #    druid:
+    url: jdbc:mysql://localhost:3306/z?useSSL=true&useUnicode=true&characterEncoding=UTF-8&serverTimezone=Asia/Shanghai
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    username: root
+    password: root
+
+
+mybatis-plus:
+  configuration:
+    map-underscore-to-camel-case: true
+    plugins:
+      - com.baomidou.mybatisplus.extension.plugins.inner.PaginationInnerInterceptor
+
+logging:
+  level:
+    cn.js.ccit.mapper: debug

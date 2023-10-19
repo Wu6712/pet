@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.js.ccit.mapper.AdoptMapper">
+
+    <resultMap id="adoptResultMap" type="cn.js.ccit.entity.Adopt">
+        <id column="id" property="id" />
+        <result column="pet_name" property="petName" />
+        <result column="pet_type" property="petType" />
+        <result column="vaccine" property="vaccine" />
+        <result column="user_id" property="userId" />
+        <result column="imageURL" property="imageURL" />
+    </resultMap>
+
+    <resultMap id="adoptManageResultMap" type="cn.js.ccit.entity.vo.AdoptVo">
+        <id column="id" property="id" />
+        <result column="pet_name" property="petName" />
+        <result column="pet_type" property="petType" />
+        <result column="vaccine" property="vaccine" />
+        <result column="imageURL" property="imageURL" />
+        <association property="user" javaType="cn.js.ccit.entity.User">
+            <result column="username" property="username" />
+        </association>
+    </resultMap>
+
+    <select id="getAdoptList" resultMap="adoptManageResultMap">
+        select a.id, a.pet_name, a.pet_type, a.vaccine, a.imageURL, u.username
+               from t_adopt a join t_user u
+                on user_id = u.id
+    </select>
+
+
+    <select id="getList" resultMap="adoptResultMap">
+        select *
+        from t_adopt
+    </select>
+
+    <select id="getById" resultMap="adoptResultMap">
+        select *
+        from t_adopt
+        where id = #{id}
+    </select>
+
+    <update id="updateOne">
+        update t_adopt
+        set user_id = #{userId}
+        where id = #{id}
+    </update>
+
+    <update id="updateVaccine">
+        update t_adopt
+        set vaccine = 1
+        where id = #{id}
+    </update>
+
+    <select id="getListByType" resultMap="adoptResultMap">
+        select *
+        from t_adopt
+        where pet_type like CONCAT('%', #{petType}, '%')
+    </select>
+
+    <insert id="insertOne" parameterType="cn.js.ccit.entity.Adopt">
+        insert into t_adopt values(null, #{petName}, #{petType}, #{vaccine}, null, #{imageURL})
+    </insert>
+
+
+</mapper>

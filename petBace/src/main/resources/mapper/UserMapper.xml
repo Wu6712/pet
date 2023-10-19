@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.js.ccit.mapper.UserMapper">
+
+    <resultMap id="userResultMap" type="cn.js.ccit.entity.User">
+        <id column="id" property="id" />
+        <result column="username" property="username" />
+        <result column="password" property="password" />
+        <result column="credit" property="credit" />
+        <result column="permissions" property="permissions" />
+    </resultMap>
+
+    <select id="selectByUsername" resultMap="userResultMap">
+        select id, username, password, credit, permissions
+        from t_user
+        where username = #{username}
+    </select>
+
+    <insert id="insertOne">
+        insert into
+            t_user(username, password, credit, permissions)
+        values(#{username}, #{password}, #{credit}, #{permissions})
+    </insert>
+
+    <update id="updateByUserName">
+        update t_user
+        set
+            password = #{newPassword}
+        where
+            username = #{username}
+    </update>
+
+    <update id="updateOne">
+        update t_user
+        set
+            credit = credit - 10
+        where username = #{username}
+    </update>
+
+</mapper>

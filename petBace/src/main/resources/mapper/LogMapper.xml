@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.js.ccit.mapper.LogMapper">
+
+    <resultMap id="logResultMap" type="cn.js.ccit.entity.Log">
+        <id column="id" property="id" />
+        <result column="image_url" property="imageUrl" />
+        <result column="username" property="username" />
+        <result column="description" property="description" />
+    </resultMap>
+
+    <select id="getListByUserName" resultMap="logResultMap">
+        select * from t_log where username = #{username}
+    </select>
+
+    <insert id="insertOne">
+        insert into t_log
+        values (null, #{username}, #{imageUrl}, #{description})
+    </insert>
+
+    <delete id="deleteOneById">
+        delete from t_log where id = #{id}
+    </delete>
+
+    <update id="updateOne">
+        update t_log
+        set image_url = #{imageUrl}, description = #{description}
+        where id = #{id}
+    </update>
+
+</mapper>

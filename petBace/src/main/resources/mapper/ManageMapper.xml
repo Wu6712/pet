@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.js.ccit.mapper.ManageMapper">
+
+    <resultMap id="manageResultMap" type="cn.js.ccit.entity.Manage">
+        <id column="id" property="id" />
+        <result column="name" property="name" />
+        <result column="description" property="description" />
+        <result column="is_handle" property="isHandle" />
+    </resultMap>
+
+    <select id="getList" resultMap="manageResultMap">
+        select id, name, description, is_handle
+        from t_manage
+    </select>
+
+    <insert id="insertOne">
+        insert into
+        t_manage(id, name, description, is_handle)
+        values(null, #{name}, #{description}, #{isHandle})
+    </insert>
+
+    <update id="updateOne">
+        update t_manage
+        set
+            is_handle = 1
+        where id = #{id}
+    </update>
+
+
+</mapper>
